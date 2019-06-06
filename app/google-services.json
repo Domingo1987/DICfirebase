@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1028273957643",
+    "firebase_url": "https://dicfirebase.firebaseio.com",
+    "project_id": "dicfirebase",
+    "storage_bucket": "dicfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028273957643:android:5e7c040b9120879b",
+        "android_client_info": {
+          "package_name": "dic.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028273957643-a8s2ocknsiq3ampulvhtbo125guvm3hb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw1iV5DeQ4Cq9lM3qAEOa6sXZr5hWe1YQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028273957643-a8s2ocknsiq3ampulvhtbo125guvm3hb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
