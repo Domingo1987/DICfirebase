@@ -1,11 +1,15 @@
 package dic.firebase;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     private FusedLocationProviderClient fusedLocationProviderClient;
     private TextView longitud;
     private TextView latitud;
-
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mensajeRef = ref.child("mensaje");
@@ -63,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        latitud = (TextView) findViewById(R.id.latitudTextView);
-        longitud = (TextView) findViewById(R.id.longitudTextView);
+        latitud = findViewById(R.id.latitudTextView);
+        longitud = findViewById(R.id.longitudTextView);
         //Localización
     }
 
@@ -118,13 +122,27 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     public void onConnected(@Nullable Bundle bundle) {
 
-        int permiso = PermissionChecker.checkSelfPermission(this, ACCESS_FINE_LOCATION);
+        if (ContextCompat.checkSelfPermission(this,
+                ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    ACCESS_FINE_LOCATION)) {
 
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
 
-        if (permiso != PermissionChecker.PERMISSION_GRANTED) {
-            Toast.makeText(this,"La aplicación requiere acceso a su localización mediante GPS.",Toast.LENGTH_LONG).show();
-        } else {
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            }
+        }
+        else {
             fusedLocationProviderClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
