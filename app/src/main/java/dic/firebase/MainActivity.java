@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mensajeRef = ref.child("mensaje");
+    DatabaseReference versionRef = ref.child("version");
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -91,6 +92,20 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
             }
         });
+
+        versionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String version = dataSnapshot.getValue(String.class);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void modificar(View view) {
